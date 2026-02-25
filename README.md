@@ -1,47 +1,61 @@
 # Dexter
 
-## Project Overview
-This is a Python SDET automation learning module, which includes:
+## Project Goal
+Dexter is a Python SDET automation learning module built around a small project called **Order Board**. You learn Python fundamentals by building and automating a real, testable app that exposes REST APIs and a simple web UI.
 
-- API automation with `requests`
-- UI automation with `Selenium`
-- Testing framework with `pytest`
+## What You Will Practice
+- Python basics (data structures, functions, error handling)
+- REST API automation with `pytest` + Flask test client
+- UI automation with Selenium (headless Chrome)
+- Test organization, fixtures, and assertions
+- GitHub Actions CI for real-world workflow
 
-## Setup Instructions
-1. Clone the repository:
+## Quickstart
+1. Clone the repo:
    ```bash
    git clone https://github.com/prasadg-veeam/Dexter.git
-   ```
-2. Navigate to the project directory:
-   ```bash
    cd Dexter
    ```
-3. Install the required dependencies:
+2. Create a virtual environment and install dependencies:
    ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # Windows: .venv\Scripts\activate
    pip install -r requirements.txt
    ```
-4. Run the tests:
+3. Run the app:
+   ```bash
+   python -m src.app
+   ```
+4. Run tests:
    ```bash
    pytest
    ```
 
-## Running the Application
-1. To run the API automation scripts:
-   ```bash
-   python src/api_automation.py
-   ```
-2. To run the UI automation scripts:
-   ```bash
-   python src/ui_automation.py
-   ```
+## Learning Path and Tasks
+- **Learning path:** `docs/learning_path.md`
+- **Hands-on tasks:** `docs/tasks.md`
+- **CI/CD guide:** `docs/ci_cd.md`
 
-## Directory Structure
+## Project Structure
 ```
 Dexter/
-├── docs/                 # Documentation
-├── src/                  # Source code
-│   ├── api_automation.py  # API Automation scripts
-│   └── ui_automation.py   # UI Automation scripts
-├── tests/                # Test suite
-└── README.md             # Project overview
-``` 
+├── .github/workflows/ci.yml
+├── docs/
+│   ├── ci_cd.md
+│   ├── learning_path.md
+│   └── tasks.md
+├── src/
+│   ├── app.py
+│   ├── data_store.py
+│   ├── static/
+│   │   └── app.js
+│   └── templates/
+│       └── index.html
+├── tests/
+│   ├── api/
+│   ├── ui/
+│   └── conftest.py
+├── pytest.ini
+├── requirements.txt
+└── README.md
+```
