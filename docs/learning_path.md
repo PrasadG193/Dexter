@@ -2,6 +2,9 @@
 
 This path guides you from Python fundamentals to automation-ready skills by building the Order Board project end-to-end.
 
+> **New to the project?** Start with the [Onboarding Guide](onboarding.md) to set up your environment first.
+> See also: [Training Plan](training_plan.md) for a structured daily schedule, and [Development Guide](development_guide.md) for branching and test workflow.
+
 ## Phase 1: Python Foundations (Day 1-2)
 1. Data types, variables, and operators
 2. Collections: list, dict, set, tuple
@@ -38,3 +41,14 @@ This path guides you from Python fundamentals to automation-ready skills by buil
 3. Inspect the workflow logs and artifacts.
 
 **Outcome:** You can operate a CI pipeline for automated tests.
+
+---
+
+## Related Guides
+
+- [Onboarding](onboarding.md) — environment setup
+- [Training Plan](training_plan.md) — structured daily schedule
+- [Hands-on Tasks](tasks.md) — incremental coding tasks
+- [Best Practices](best_practices.md) — automation patterns and checklist
+- [Development Guide](development_guide.md) — branching and test workflow
+- [CI/CD Guide](ci_cd.md) — GitHub Actions details
