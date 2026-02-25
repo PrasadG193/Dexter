@@ -5,11 +5,9 @@ import time
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.chrome import ChromeDriverManager
 
 from src.app import app as flask_app
 from src.data_store import clear_orders
@@ -38,9 +36,7 @@ def driver():
     opts.add_argument("--headless")
     opts.add_argument("--no-sandbox")
     opts.add_argument("--disable-dev-shm-usage")
-    drv = webdriver.Chrome(
-        service=Service(ChromeDriverManager().install()), options=opts
-    )
+    drv = webdriver.Chrome(options=opts)
     yield drv
     drv.quit()
 
