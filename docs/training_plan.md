@@ -30,6 +30,8 @@ A structured 3-week (15 business-day) plan for learning Python SDET skills using
 
 **Done when:** Script runs without errors and prints the correct filtered results.
 
+**Task:** [→ Task 1: Python Basics](tasks.md#task-1-python-basics-day-1)
+
 **Interview angle:** _"What is the difference between a list and a tuple? Give an automation use case for each."_ (Lists are mutable — good for collecting test results. Tuples are immutable — good for fixed test parameters.)
 
 ---
@@ -45,6 +47,8 @@ A structured 3-week (15 business-day) plan for learning Python SDET skills using
 - Write a standalone script `scratch/day2_utils.py` that loads `data/sample_orders.json`, calls all three utility functions, and prints the results.
 
 **Done when:** `python scratch/day2_utils.py` prints a formatted summary with no errors.
+
+**Task:** [→ Task 2: Functions and Type Hints](tasks.md#task-2-functions-and-type-hints-day-2)
 
 **Interview angle:** _"What are type hints in Python and why do you use them in test code?"_ (Hints catch mistakes early, improve IDE auto-complete, and make intent clear to reviewers.)
 
@@ -63,6 +67,8 @@ A structured 3-week (15 business-day) plan for learning Python SDET skills using
 
 **Done when:** All three error cases are handled gracefully and the timing output is printed.
 
+**Task:** [→ Task 3: Error Handling](tasks.md#task-3-error-handling-day-3)
+
 **Interview angle:** _"Describe what a decorator is and name two pytest decorators."_ (`@pytest.mark.parametrize` and `@pytest.fixture` are pytest decorators; a decorator is a function that wraps another function to add behaviour.)
 
 ---
@@ -79,6 +85,8 @@ A structured 3-week (15 business-day) plan for learning Python SDET skills using
 - Verify that `STATUS_TRANSITIONS["pending"]` contains `"fulfilled"` and `"cancelled"`.
 
 **Done when:** `python scratch/day4_oop.py` prints correct totals and assertions pass.
+
+**Task:** [→ Task 4: OOP and Dataclasses](tasks.md#task-4-oop-and-dataclasses-day-4)
 
 **Interview angle:** _"What is a dataclass and how does it differ from a regular class?"_ (A dataclass auto-generates `__init__`, `__repr__`, and `__eq__` from field declarations, reducing boilerplate.)
 
@@ -102,6 +110,8 @@ A structured 3-week (15 business-day) plan for learning Python SDET skills using
 
 **Done when:** All curl calls succeed as expected and notes file is complete.
 
+**Task:** [→ Task 5: App Exploration with curl](tasks.md#task-5-app-exploration-with-curl-day-5)
+
 **Interview angle:** _"What is the difference between a 400 and a 422?"_ (400 is generic bad request; 422 Unprocessable Entity is used when the syntax is valid but semantics fail — e.g., JSON is valid but a field value is out of range.)
 
 ---
@@ -121,6 +131,8 @@ A structured 3-week (15 business-day) plan for learning Python SDET skills using
 
 **Done when:** `pytest -m api -v` shows all new tests green.
 
+**Task:** [→ Task 6: pytest Fundamentals](tasks.md#task-6-pytest-fundamentals-day-6)
+
 **Interview angle:** _"What is the difference between `function` and `module` scope in a pytest fixture?"_ (Function: fixture is set up and torn down for each test. Module: shared once across all tests in the file — good for expensive setup like starting a server.)
 
 ---
@@ -137,6 +149,8 @@ A structured 3-week (15 business-day) plan for learning Python SDET skills using
 
 **Done when:** All parametrized cases pass; invalid transitions return 400.
 
+**Task:** [→ Task 7: Parametrized Tests](tasks.md#task-7-parametrized-tests-day-7)
+
 **Interview angle:** _"What is boundary value analysis and when do you apply it?"_ (Test values just inside and outside valid ranges — e.g., quantity=0, 1, and INT_MAX — to catch off-by-one errors.)
 
 ---
@@ -152,6 +166,8 @@ A structured 3-week (15 business-day) plan for learning Python SDET skills using
 - Add a second JSON file `data/invalid_orders.json` with 3 invalid payloads and write a parametrized test that loads it with `json.load` and asserts each returns 400.
 
 **Done when:** Both tests pass; data files are separate from test logic.
+
+**Task:** [→ Task 8: JSON Test Data Fixtures](tasks.md#task-8-json-test-data-fixtures-day-8)
 
 **Interview angle:** _"How do you manage test data in a large test suite?"_ (Use fixtures for programmatic setup, JSON/CSV files for data-driven cases, and always clean up with teardown or autouse fixtures.)
 
@@ -170,6 +186,8 @@ A structured 3-week (15 business-day) plan for learning Python SDET skills using
 
 **Done when:** `pytest -m auth -v` is all green; notes file answers the question.
 
+**Task:** [→ Task 9: Auth Tests](tasks.md#task-9-auth-tests-day-9)
+
 **Interview angle:** _"How do you handle authentication headers in API tests without hardcoding secrets?"_ (Use environment variables or a secrets manager; reference them via `os.environ.get()` in fixtures.)
 
 ---
@@ -186,6 +204,8 @@ A structured 3-week (15 business-day) plan for learning Python SDET skills using
 - Run `pytest -m api -v` — all tests should pass.
 
 **Done when:** All new tests pass; `pytest.approx` is used where floating-point equality is tested.
+
+**Task:** [→ Task 10: Filtering and Pagination Tests](tasks.md#task-10-filtering-and-pagination-tests-day-10)
 
 **Interview angle:** _"How do you test a paginated API endpoint?"_ (Test page 1 and 2, boundary (empty last page), and that `total` and `pages` metadata are correct.)
 
@@ -206,6 +226,8 @@ A structured 3-week (15 business-day) plan for learning Python SDET skills using
 
 **Done when:** All 5 UI tests pass with no `sleep` calls.
 
+**Task:** [→ Task 11: Selenium Basics](tasks.md#task-11-selenium-basics-day-11)
+
 **Interview angle:** _"What is the difference between implicit and explicit waits in Selenium?"_ (Implicit: global timeout applied to every `find_element` call — can hide real timing issues. Explicit: per-condition wait that fails fast with a clear reason — preferred.)
 
 ---
@@ -223,6 +245,8 @@ A structured 3-week (15 business-day) plan for learning Python SDET skills using
 
 **Done when:** All new UI tests pass; `OrderPage` is the only file that contains Selenium `find_element` calls.
 
+**Task:** [→ Task 12: Page Object Model](tasks.md#task-12-page-object-model-day-12)
+
 **Interview angle:** _"What is the Page Object Model and why do you use it?"_ (POM separates locators and page actions from test logic. When the UI changes, only the page object needs updating — not every test.)
 
 ---
@@ -239,6 +263,8 @@ A structured 3-week (15 business-day) plan for learning Python SDET skills using
 - Write `scratch/day13_notes.md` answering: _What information would you include in a failure screenshot filename?_
 
 **Done when:** Screenshot is saved on failure; none saved on pass.
+
+**Task:** [→ Task 13: Screenshot on Failure](tasks.md#task-13-screenshot-on-failure-day-13)
 
 **Interview angle:** _"How do you debug a flaky Selenium test?"_ (Add screenshot on failure, increase timeouts, log browser console errors, check for race conditions in async JS, and isolate state between tests.)
 
@@ -262,6 +288,8 @@ open reports/report.html
 
 **Done when:** Coverage ≥ 80%; `black --check .` exits 0; `reports/report.html` shows all tests.
 
+**Task:** [→ Task 14: Coverage and HTML Reports](tasks.md#task-14-coverage-and-html-reports-day-14)
+
 **Interview angle:** _"What does 80% code coverage mean? Is it enough?"_ (80% is a common threshold. It is a floor, not a goal — critical paths like auth and error handling should be 100%; utility code can be lower. Coverage does not guarantee correctness.)
 
 ---
@@ -278,6 +306,8 @@ open reports/report.html
 - Write 2–3 sentences for a resume bullet point describing this project.
 
 **Done when:** CI is green on your branch; interview prep questions answered.
+
+**Task:** [→ Task 15: CI/CD and Interview Prep](tasks.md#task-15-cicd-and-interview-prep-day-15)
 
 **Interview angle:** _"Walk me through the CI pipeline for this project."_ (Push triggers checkout → install deps → `black --check` → API tests with coverage → Chrome install → UI tests → upload reports.)
 

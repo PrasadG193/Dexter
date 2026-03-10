@@ -9,6 +9,8 @@ One task per day of the [Training Plan](training_plan.md). Start with Task 1 and
 
 ## Task 1: Python Basics (Day 1)
 
+**Training Plan:** [→ Day 1: Data Types and Collections](training_plan.md#day-1-data-types-and-collections)
+
 **Goal:** Parse JSON data and manipulate it with Python collections.
 
 **Steps:**
@@ -24,6 +26,8 @@ One task per day of the [Training Plan](training_plan.md). Start with Task 1 and
 ---
 
 ## Task 2: Functions and Type Hints (Day 2)
+
+**Training Plan:** [→ Day 2: Functions, Type Hints, and Modules](training_plan.md#day-2-functions-type-hints-and-modules)
 
 **Goal:** Write and use helper functions from `src/utils.py`.
 
@@ -41,6 +45,8 @@ One task per day of the [Training Plan](training_plan.md). Start with Task 1 and
 
 ## Task 3: Error Handling (Day 3)
 
+**Training Plan:** [→ Day 3: Error Handling, Decorators, and Context Managers](training_plan.md#day-3-error-handling-decorators-and-context-managers)
+
 **Goal:** Handle exceptions gracefully and understand context managers.
 
 **Steps:**
@@ -57,6 +63,8 @@ One task per day of the [Training Plan](training_plan.md). Start with Task 1 and
 
 ## Task 4: OOP and Dataclasses (Day 4)
 
+**Training Plan:** [→ Day 4: OOP and Dataclasses](training_plan.md#day-4-oop-and-dataclasses)
+
 **Goal:** Understand and extend the `Order` dataclass.
 
 **Steps:**
@@ -72,6 +80,8 @@ One task per day of the [Training Plan](training_plan.md). Start with Task 1 and
 ---
 
 ## Task 5: App Exploration with curl (Day 5)
+
+**Training Plan:** [→ Day 5: Flask Basics and REST Concepts](training_plan.md#day-5-flask-basics-and-rest-concepts)
 
 **Goal:** Understand every REST endpoint and the auth middleware.
 
@@ -92,6 +102,8 @@ One task per day of the [Training Plan](training_plan.md). Start with Task 1 and
 
 ## Task 6: pytest Fundamentals (Day 6)
 
+**Training Plan:** [→ Day 6: pytest Fundamentals and Fixtures](training_plan.md#day-6-pytest-fundamentals-and-fixtures)
+
 **Goal:** Write 5 new API tests using fixtures.
 
 **Steps:**
@@ -107,6 +119,8 @@ One task per day of the [Training Plan](training_plan.md). Start with Task 1 and
 ---
 
 ## Task 7: Parametrized Tests (Day 7)
+
+**Training Plan:** [→ Day 7: Parametrized Tests and Boundary Testing](training_plan.md#day-7-parametrized-tests-and-boundary-testing)
 
 **Goal:** Use `@pytest.mark.parametrize` to test multiple inputs efficiently.
 
@@ -124,6 +138,8 @@ One task per day of the [Training Plan](training_plan.md). Start with Task 1 and
 
 ## Task 8: JSON Test Data Fixtures (Day 8)
 
+**Training Plan:** [→ Day 8: Test Data Management and JSON Fixtures](training_plan.md#day-8-test-data-management-and-json-fixtures)
+
 **Goal:** Separate test data from test logic using JSON files and fixtures.
 
 **Steps:**
@@ -138,6 +154,8 @@ One task per day of the [Training Plan](training_plan.md). Start with Task 1 and
 ---
 
 ## Task 9: Auth Tests (Day 9)
+
+**Training Plan:** [→ Day 9: Authentication Testing](training_plan.md#day-9-authentication-testing)
 
 **Goal:** Test API key authentication thoroughly.
 
@@ -154,6 +172,8 @@ One task per day of the [Training Plan](training_plan.md). Start with Task 1 and
 
 ## Task 10: Filtering and Pagination Tests (Day 10)
 
+**Training Plan:** [→ Day 10: Filtering, Pagination, and Stats Tests](training_plan.md#day-10-filtering-pagination-and-stats-tests)
+
 **Goal:** Test all query parameters on `GET /api/orders`.
 
 **Steps:**
@@ -167,6 +187,8 @@ One task per day of the [Training Plan](training_plan.md). Start with Task 1 and
 ---
 
 ## Task 11: Selenium Basics (Day 11)
+
+**Training Plan:** [→ Day 11: Selenium Basics and Explicit Waits](training_plan.md#day-11-selenium-basics-and-explicit-waits)
 
 **Goal:** Understand the Selenium test setup and write an explicit-wait test.
 
@@ -184,6 +206,8 @@ One task per day of the [Training Plan](training_plan.md). Start with Task 1 and
 
 ## Task 12: Page Object Model (Day 12)
 
+**Training Plan:** [→ Day 12: Page Object Model](training_plan.md#day-12-page-object-model)
+
 **Goal:** Extend `OrderPage` and write tests that use it exclusively.
 
 **Steps:**
@@ -198,6 +222,8 @@ One task per day of the [Training Plan](training_plan.md). Start with Task 1 and
 
 ## Task 13: Screenshot on Failure (Day 13)
 
+**Training Plan:** [→ Day 13: Screenshot on Failure and Advanced UI Testing](training_plan.md#day-13-screenshot-on-failure-and-advanced-ui-testing)
+
 **Goal:** Understand and verify the screenshot hook.
 
 **Steps:**
@@ -211,6 +237,8 @@ One task per day of the [Training Plan](training_plan.md). Start with Task 1 and
 ---
 
 ## Task 14: Coverage and HTML Reports (Day 14)
+
+**Training Plan:** [→ Day 14: Coverage, HTML Reports, and Code Quality](training_plan.md#day-14-coverage-html-reports-and-code-quality)
 
 **Goal:** Measure coverage and reach ≥ 80% on `src/`.
 
@@ -227,6 +255,8 @@ One task per day of the [Training Plan](training_plan.md). Start with Task 1 and
 ---
 
 ## Task 15: CI/CD and Interview Prep (Day 15)
+
+**Training Plan:** [→ Day 15: CI/CD Deep Dive and Interview Prep](training_plan.md#day-15-cicd-deep-dive-and-interview-prep)
 
 **Goal:** Operate the full CI pipeline and consolidate interview readiness.
 
