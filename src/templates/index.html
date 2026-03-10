@@ -5,13 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Order Board</title>
   <style>
-    body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 16px; }
+    body { font-family: Arial, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 16px; }
     h1 { color: #333; }
-    form { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    form { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
     input { padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px; flex: 1; min-width: 120px; }
     button { padding: 6px 14px; border: none; border-radius: 4px; cursor: pointer; }
     #add-btn { background: #4CAF50; color: white; }
     #error-msg { color: red; margin-bottom: 12px; }
+    .stats-panel { display: flex; gap: 24px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 6px; padding: 12px 20px; margin-bottom: 16px; }
+    .stat-item { text-align: center; }
+    .stat-label { font-size: 12px; color: #666; text-transform: uppercase; }
+    .stat-value { font-size: 22px; font-weight: bold; color: #333; }
+    .filter-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .filter-bar label { font-weight: bold; }
+    select { padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px; }
     table { width: 100%; border-collapse: collapse; }
     th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
     th { background: #f4f4f4; }
@@ -20,6 +27,7 @@
 </head>
 <body>
   <h1>Order Board</h1>
+
   <form id="order-form">
     <input id="customer" placeholder="Customer" required />
     <input id="item" placeholder="Item" required />
@@ -28,6 +36,40 @@
     <button type="submit" id="add-btn">Add Order</button>
   </form>
   <p id="error-msg"></p>
+
+  <div class="stats-panel">
+    <div class="stat-item">
+      <div class="stat-label">Total Orders</div>
+      <div class="stat-value" id="stats-total">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Revenue</div>
+      <div class="stat-value" id="stats-revenue">$0.00</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Pending</div>
+      <div class="stat-value" id="stats-pending">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Fulfilled</div>
+      <div class="stat-value" id="stats-fulfilled">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Cancelled</div>
+      <div class="stat-value" id="stats-cancelled">0</div>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <label for="status-filter">Filter by status:</label>
+    <select id="status-filter">
+      <option value="">All</option>
+      <option value="pending">Pending</option>
+      <option value="fulfilled">Fulfilled</option>
+      <option value="cancelled">Cancelled</option>
+    </select>
+  </div>
+
   <table id="orders-table">
     <thead>
       <tr>

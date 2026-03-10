@@ -1,21 +1,8 @@
 """In-memory Order store."""
-from dataclasses import dataclass, field, asdict
-from datetime import datetime, timezone
-import uuid
 
+from dataclasses import asdict
 
-@dataclass
-class Order:
-    customer: str
-    item: str
-    quantity: int
-    price: float
-    id: str = field(default_factory=lambda: str(uuid.uuid4()))
-    status: str = "pending"
-    created_at: str = field(
-        default_factory=lambda: datetime.now(timezone.utc).isoformat()
-    )
-
+from src.models import Order
 
 _orders: dict[str, Order] = {}
 
@@ -54,6 +41,24 @@ def delete_order(order_id: str) -> bool:
 def clear_orders() -> None:
     """Remove all orders (used in tests)."""
     _orders.clear()
+
+
+def filter_orders(
+    status: str | None = None,
+    customer: str | None = None,
+    sort_by: str | None = None,
+) -> list[Order]:
+    """Return filtered and sorted list of orders."""
+    orders = get_all_orders()
+    if status:
+        orders = [o for o in orders if o.status == status]
+    if customer:
+        orders = [o for o in orders if customer.lower() in o.customer.lower()]
+    if sort_by == "price":
+        orders = sorted(orders, key=lambda o: o.price)
+    elif sort_by == "price_desc":
+        orders = sorted(orders, key=lambda o: o.price, reverse=True)
+    return orders
 
 
 def order_to_dict(order: Order) -> dict:

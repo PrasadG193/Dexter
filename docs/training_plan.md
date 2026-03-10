@@ -1,201 +1,299 @@
 # Training Plan
 
-A structured 2-week plan for automation engineers learning Python SDET skills with the Dexter project.
+A structured 3-week (15 business-day) plan for learning Python SDET skills using the Dexter project. Each day includes a topic summary, morning study activity, afternoon hands-on task, and interview angle.
 
 ---
 
 ## Overview
 
-| Week | Focus | Goal |
+| Week | Focus | Days |
 |------|-------|------|
-| Week 1 | Python foundations + project setup | Write and run basic Python; understand the app |
-| Week 2 | Automation deep dive + CI/CD | Build a full test suite; operate CI pipeline |
+| Week 1 | Python Foundations | 1–5 |
+| Week 2 | API Test Automation | 6–10 |
+| Week 3 | UI Automation + CI/CD | 11–15 |
 
 ---
 
-## Week 1 — Foundations
+## Week 1 — Python Foundations
 
-### Day 1: Python Basics
+### Day 1: Data Types and Collections
 
-**Topics:** Data types, variables, operators, collections (list, dict, set, tuple), control flow.
+**Topic:** Python built-ins — `str`, `int`, `float`, `bool`, `list`, `dict`, `set`, `tuple`. List comprehensions and dict comprehensions.
 
-**Exercises:**
-- [ ] Write a script that creates a list of 5 sample orders (dicts) and prints each one.
-- [ ] Filter orders where `qty > 1` using a list comprehension.
-- [ ] Write a function `calculate_total(price, qty)` that returns the total cost.
+**Morning:** Read the Python docs overview of [built-in types](https://docs.python.org/3/library/stdtypes.html). Then open `data/sample_orders.json` and read it with `json.load`.
 
-**Deliverable:** `scratch/day1_basics.py` with the above exercises.
+**Afternoon task:**
+- Create `scratch/day1_basics.py`.
+- Load `data/sample_orders.json` and store it in a list.
+- Use a list comprehension to filter orders where `quantity > 1`.
+- Print the customer name and total cost (`price × quantity`) for each filtered order.
 
----
+**Done when:** Script runs without errors and prints the correct filtered results.
 
-### Day 2: Functions, Modules, and Error Handling
-
-**Topics:** Functions, modules, imports, exceptions, logging.
-
-**Exercises:**
-- [ ] Refactor `calculate_total` into a new module `src/utils.py`.
-- [ ] Add input validation that raises `ValueError` for negative price or zero quantity.
-- [ ] Write a test in `tests/api/` that calls the validation logic and asserts the error.
-
-**Deliverable:** Updated `src/utils.py` and a passing test.
+**Interview angle:** _"What is the difference between a list and a tuple? Give an automation use case for each."_ (Lists are mutable — good for collecting test results. Tuples are immutable — good for fixed test parameters.)
 
 ---
 
-### Day 3: Project Setup and App Exploration
+### Day 2: Functions, Type Hints, and Modules
 
-**Topics:** Virtual environments, pip, Flask basics, REST concepts.
+**Topic:** Defining functions, default arguments, `*args`/`**kwargs`, type annotations, importing modules.
 
-**Exercises:**
-- [ ] Complete [Onboarding Guide](onboarding.md) setup from scratch.
-- [ ] Start the app and use `curl` to call each API endpoint.
-- [ ] Read `src/app.py` and `src/data_store.py` and describe (in comments) what each function does.
+**Morning:** Read `src/utils.py`. Understand `validate_order_payload`, `format_price`, and `calculate_order_total`.
 
-**Deliverable:** Running app with annotated source code comments.
+**Afternoon task:**
+- Add a new function `summarise_orders(orders: list[dict]) -> str` to `src/utils.py` that returns a human-readable summary string.
+- Write a standalone script `scratch/day2_utils.py` that loads `data/sample_orders.json`, calls all three utility functions, and prints the results.
 
----
+**Done when:** `python scratch/day2_utils.py` prints a formatted summary with no errors.
 
-### Day 4: First API Tests
-
-**Topics:** `pytest` basics, fixtures, assertions, HTTP status codes.
-
-**Exercises:**
-- [ ] Read `tests/api/test_orders_api.py`.
-- [ ] Add tests for: create with missing fields (400), create with invalid price (400), fetch a nonexistent order (404).
-- [ ] Run `pytest -m api -v` and confirm all pass.
-
-**Deliverable:** At least 3 new passing API tests.
+**Interview angle:** _"What are type hints in Python and why do you use them in test code?"_ (Hints catch mistakes early, improve IDE auto-complete, and make intent clear to reviewers.)
 
 ---
 
-### Day 5: Deeper API Testing
+### Day 3: Error Handling, Decorators, and Context Managers
 
-**Topics:** Parametrize, negative testing, boundary conditions.
+**Topic:** `try/except/finally`, custom exceptions, `@` decorator syntax, `with` statement and context managers.
 
-**Exercises:**
-- [ ] Use `@pytest.mark.parametrize` to test 4–5 invalid payloads in a single test function.
-- [ ] Add a test that creates 3 orders and asserts the list endpoint returns all 3.
-- [ ] Add a test for the update endpoint (PUT).
+**Morning:** Read `src/utils.py:validate_order_payload`. Note how validation errors are collected rather than raised immediately.
 
-**Deliverable:** Parametrized test block + update/list test.
+**Afternoon task:**
+- Add input validation to `validate_order_payload` that raises a `ValueError` if `data` is not a dict.
+- Write `scratch/day3_errors.py` that calls `validate_order_payload` with three bad inputs and catches each error, printing a descriptive message.
+- Add a simple timing decorator `@timed` (using `functools.wraps`) to a function in the scratch file.
 
----
+**Done when:** All three error cases are handled gracefully and the timing output is printed.
 
-## Week 2 — Automation and CI/CD
-
-### Day 6: Selenium UI Basics
-
-**Topics:** WebDriver setup, locators, explicit waits, Page Object basics.
-
-**Exercises:**
-- [ ] Read `tests/ui/test_orders_ui.py`.
-- [ ] Add a test that creates an order through the UI and verifies it appears in the list.
-- [ ] Replace any `time.sleep` calls (if present) with `WebDriverWait`.
-
-**Deliverable:** 1 new UI test using explicit waits.
+**Interview angle:** _"Describe what a decorator is and name two pytest decorators."_ (`@pytest.mark.parametrize` and `@pytest.fixture` are pytest decorators; a decorator is a function that wraps another function to add behaviour.)
 
 ---
 
-### Day 7: Advanced UI Testing
+### Day 4: OOP and Dataclasses
 
-**Topics:** Form validation, error messages, dynamic content.
+**Topic:** Classes, `__init__`, instance methods, inheritance, Python `@dataclass`.
 
-**Exercises:**
-- [ ] Add a test that submits an empty form and asserts a validation message appears.
-- [ ] Add a test that deletes an order through the UI and verifies it is removed.
-- [ ] Introduce a simple Page Object for the Order Board page.
+**Morning:** Read `src/models.py`. Understand the `Order` dataclass — its fields, defaults, and `STATUS_TRANSITIONS`.
 
-**Deliverable:** 2 new UI tests + a Page Object class.
+**Afternoon task:**
+- Add an instance method `total_cost(self) -> float` to the `Order` dataclass that returns `price * quantity`.
+- Write `scratch/day4_oop.py` that imports `Order` from `src.models`, creates two orders, and prints their `total_cost()`.
+- Verify that `STATUS_TRANSITIONS["pending"]` contains `"fulfilled"` and `"cancelled"`.
 
----
+**Done when:** `python scratch/day4_oop.py` prints correct totals and assertions pass.
 
-### Day 8: Code Quality
-
-**Topics:** `black` formatting, naming conventions, code review.
-
-**Exercises:**
-- [ ] Run `black --check .` and fix any violations.
-- [ ] Review your test code against the [Best Practices](best_practices.md) checklist.
-- [ ] Open a PR for your week's work and complete the PR checklist in [CONTRIBUTING.md](../CONTRIBUTING.md).
-
-**Deliverable:** Formatted, reviewed PR.
+**Interview angle:** _"What is a dataclass and how does it differ from a regular class?"_ (A dataclass auto-generates `__init__`, `__repr__`, and `__eq__` from field declarations, reducing boilerplate.)
 
 ---
 
-### Day 9: CI/CD
+### Day 5: Flask Basics and REST Concepts
 
-**Topics:** GitHub Actions, workflow YAML, reading logs.
+**Topic:** HTTP methods and status codes, Flask routing, request/response cycle, JSON serialisation.
 
-**Exercises:**
-- [ ] Read [CI/CD Guide](ci_cd.md) and `.github/workflows/ci.yml`.
-- [ ] Push a branch and watch the workflow run in the Actions tab.
-- [ ] Intentionally break a test, push, observe the failure in CI, then fix it.
-- [ ] Add a CI status badge to your fork's README.
+**Morning:** Start the app with `python -m src.app`. Use `curl` or Postman to call every endpoint:
+- `GET /api/health`
+- `GET /api/orders`
+- `POST /api/orders` (with and without the `X-API-Key: secret` header)
+- `GET /api/orders/stats`
+- `GET /api/orders?status=pending`
 
-**Deliverable:** PR with a green CI run.
+**Afternoon task:**
+- Read `src/app.py` end-to-end and add an inline comment above each route explaining what it does.
+- Document the auth flow: which HTTP status code is returned when the key is missing (401) vs. wrong (403)?
+- Answer in a `scratch/day5_notes.md` file: _What is the difference between 400, 401, 403, 404, and 422?_
 
----
+**Done when:** All curl calls succeed as expected and notes file is complete.
 
-### Day 10: Interview Prep and Review
-
-**Topics:** Consolidation, reflection, mock interview prep.
-
-**Exercises:**
-- [ ] Review all completed tasks against [tasks.md](tasks.md).
-- [ ] Work through the interview prep checklist below.
-- [ ] Write 2–3 sentences describing the project for a resume bullet point.
-
-**Deliverable:** Completed interview prep checklist.
+**Interview angle:** _"What is the difference between a 400 and a 422?"_ (400 is generic bad request; 422 Unprocessable Entity is used when the syntax is valid but semantics fail — e.g., JSON is valid but a field value is out of range.)
 
 ---
 
-## Interview Prep Checklist
+## Week 2 — API Test Automation
 
-Use this checklist to self-assess before a Python SDET interview.
+### Day 6: pytest Fundamentals and Fixtures
 
-### Python
+**Topic:** Test discovery, `assert` statements, `pytest.raises`, fixture scope (`function`, `module`, `session`), `conftest.py`.
 
-- [ ] Explain the difference between a list and a tuple; give an automation use case for each.
-- [ ] Write a function that reads a JSON file and returns a list of dicts.
-- [ ] Describe what a decorator is and name two used in `pytest`.
+**Morning:** Read `tests/conftest.py` and `tests/api/test_orders_api.py`. Note how `client`, `auth_headers`, and `order_payload` fixtures work.
 
-### API Automation
+**Afternoon task:**
+- Write 5 new API tests in `tests/api/test_orders_api.py` covering edge cases you find by reading `src/app.py`.
+- At least two tests must use the `order_payload` factory fixture.
+- Run `pytest -m api -v` and confirm all pass.
 
-- [ ] Explain what `pytest` fixtures are and give an example.
-- [ ] Describe how you would test a paginated API endpoint.
-- [ ] What is the difference between a 400 and a 422 status code?
-- [ ] How do you handle authentication tokens in API tests?
+**Done when:** `pytest -m api -v` shows all new tests green.
 
-### UI Automation (Selenium)
+**Interview angle:** _"What is the difference between `function` and `module` scope in a pytest fixture?"_ (Function: fixture is set up and torn down for each test. Module: shared once across all tests in the file — good for expensive setup like starting a server.)
 
-- [ ] What is the difference between implicit and explicit waits?
-- [ ] Describe the Page Object Model (POM) pattern.
-- [ ] How would you handle a dynamically loaded table in Selenium?
-- [ ] What causes flaky UI tests and how do you reduce them?
+---
 
-### CI/CD
+### Day 7: Parametrized Tests and Boundary Testing
 
-- [ ] Describe the steps in the GitHub Actions workflow for this project.
-- [ ] How would you run only API tests in CI (not UI tests)?
-- [ ] What is the purpose of a `requirements.txt` file?
+**Topic:** `@pytest.mark.parametrize`, boundary value analysis, equivalence partitioning.
 
-### Soft Skills
+**Morning:** Read the existing `test_create_order_invalid_payload` parametrized test. Understand how each parameter tuple maps to a test case.
 
-- [ ] How do you decide which tests to automate versus test manually?
-- [ ] Describe a time a test caught a real bug.
-- [ ] How do you keep a test suite maintainable as the application grows?
+**Afternoon task:**
+- Add a new parametrized test `test_update_order_statuses` that tests every valid status transition (`pending→fulfilled`, `pending→cancelled`) and at least two invalid ones (`fulfilled→pending`, `cancelled→pending`).
+- Add a parametrized test for `GET /api/orders?sort=X` with valid and invalid sort values.
+
+**Done when:** All parametrized cases pass; invalid transitions return 400.
+
+**Interview angle:** _"What is boundary value analysis and when do you apply it?"_ (Test values just inside and outside valid ranges — e.g., quantity=0, 1, and INT_MAX — to catch off-by-one errors.)
+
+---
+
+### Day 8: Test Data Management and JSON Fixtures
+
+**Topic:** Fixture factories, loading JSON test data, the `sample_orders` fixture, separating test data from test logic.
+
+**Morning:** Read `data/sample_orders.json` and the `sample_orders` fixture in `tests/conftest.py`. Understand how it creates orders and cleans up.
+
+**Afternoon task:**
+- Write a test `test_stats_with_sample_data` in `tests/api/test_filters_api.py` that uses the `sample_orders` fixture and asserts the `/api/orders/stats` revenue matches the expected sum.
+- Add a second JSON file `data/invalid_orders.json` with 3 invalid payloads and write a parametrized test that loads it with `json.load` and asserts each returns 400.
+
+**Done when:** Both tests pass; data files are separate from test logic.
+
+**Interview angle:** _"How do you manage test data in a large test suite?"_ (Use fixtures for programmatic setup, JSON/CSV files for data-driven cases, and always clean up with teardown or autouse fixtures.)
+
+---
+
+### Day 9: Authentication Testing
+
+**Topic:** API key auth, HTTP 401 vs. 403, testing security boundaries.
+
+**Morning:** Read `tests/api/test_auth_api.py`. Understand why 401 means "unauthenticated" and 403 means "authenticated but not authorised".
+
+**Afternoon task:**
+- Verify all tests in `test_auth_api.py` pass: `pytest -m auth -v`.
+- Add a test that checks the error message body for missing vs. wrong key (they should differ).
+- Write `scratch/day9_notes.md` answering: _How would you test an OAuth2 bearer-token API instead of an API key?_
+
+**Done when:** `pytest -m auth -v` is all green; notes file answers the question.
+
+**Interview angle:** _"How do you handle authentication headers in API tests without hardcoding secrets?"_ (Use environment variables or a secrets manager; reference them via `os.environ.get()` in fixtures.)
+
+---
+
+### Day 10: Filtering, Pagination, and Stats Tests
+
+**Topic:** Query parameters, paginated responses, aggregate endpoints, using `pytest.approx` for floats.
+
+**Morning:** Read `tests/api/test_filters_api.py` end-to-end.
+
+**Afternoon task:**
+- Add a test that creates 7 orders and verifies `pages=3` when `limit=3`.
+- Add a test that filters by customer _and_ status simultaneously (combine query params: `?customer=Alice&status=pending`).
+- Run `pytest -m api -v` — all tests should pass.
+
+**Done when:** All new tests pass; `pytest.approx` is used where floating-point equality is tested.
+
+**Interview angle:** _"How do you test a paginated API endpoint?"_ (Test page 1 and 2, boundary (empty last page), and that `total` and `pages` metadata are correct.)
+
+---
+
+## Week 3 — UI Automation + CI/CD
+
+### Day 11: Selenium Basics and Explicit Waits
+
+**Topic:** WebDriver setup, locator strategies (`By.ID`, `By.CSS_SELECTOR`, `By.XPATH`), `WebDriverWait` with `ExpectedConditions`.
+
+**Morning:** Read `tests/ui/test_orders_ui.py`. Note how `live_server` starts Flask in a thread and how `driver` yields and quits Chrome.
+
+**Afternoon task:**
+- Run `pytest -m ui -v` and confirm the existing 4 tests pass.
+- Write a new UI test `test_order_count_increases` that creates two orders via the UI and asserts the orders table has at least two rows.
+- **Never use `time.sleep`** — use `WebDriverWait` only.
+
+**Done when:** All 5 UI tests pass with no `sleep` calls.
+
+**Interview angle:** _"What is the difference between implicit and explicit waits in Selenium?"_ (Implicit: global timeout applied to every `find_element` call — can hide real timing issues. Explicit: per-condition wait that fails fast with a clear reason — preferred.)
+
+---
+
+### Day 12: Page Object Model
+
+**Topic:** POM pattern, single responsibility, method chaining, why POM reduces test maintenance.
+
+**Morning:** Read `tests/ui/pages/order_page.py`. Understand every method and the rationale for the fluent interface (returning `self`).
+
+**Afternoon task:**
+- Add a `filter_by_status` test to `tests/ui/test_orders_ui.py` that uses `OrderPage.filter_by_status("fulfilled")` and asserts only fulfilled orders are shown.
+- Add a `get_error_message(self) -> str` method to `OrderPage` that reads the `#error-msg` element.
+- Write a test that submits an empty form and asserts the error message is not empty.
+
+**Done when:** All new UI tests pass; `OrderPage` is the only file that contains Selenium `find_element` calls.
+
+**Interview angle:** _"What is the Page Object Model and why do you use it?"_ (POM separates locators and page actions from test logic. When the UI changes, only the page object needs updating — not every test.)
+
+---
+
+### Day 13: Screenshot on Failure and Advanced UI Testing
+
+**Topic:** `pytest_runtest_makereport` hook, screenshot capture, debugging failed UI tests.
+
+**Morning:** Read the `pytest_runtest_makereport` hook in `tests/conftest.py`. Understand how `item.funcargs.get("driver")` retrieves the fixture value.
+
+**Afternoon task:**
+- Intentionally break one UI test (e.g., wrong locator). Run `pytest -m ui -v` and verify a screenshot is saved to `reports/screenshots/`.
+- Fix the test. Run again and verify no screenshot is saved for passing tests.
+- Write `scratch/day13_notes.md` answering: _What information would you include in a failure screenshot filename?_
+
+**Done when:** Screenshot is saved on failure; none saved on pass.
+
+**Interview angle:** _"How do you debug a flaky Selenium test?"_ (Add screenshot on failure, increase timeouts, log browser console errors, check for race conditions in async JS, and isolate state between tests.)
+
+---
+
+### Day 14: Coverage, HTML Reports, and Code Quality
+
+**Topic:** `pytest-cov`, branch coverage, `pytest-html`, `black` formatter, coverage thresholds.
+
+**Morning:** Run the following commands and read the output:
+```bash
+pytest -m api --cov=src --cov-report=term-missing
+black --check .
+open reports/report.html
+```
+
+**Afternoon task:**
+- Identify two uncovered branches in `src/app.py` or `src/data_store.py` and write tests that cover them.
+- Run `pytest --cov=src --cov-report=term-missing` and confirm coverage is ≥ 80%.
+- Fix any `black` violations.
+
+**Done when:** Coverage ≥ 80%; `black --check .` exits 0; `reports/report.html` shows all tests.
+
+**Interview angle:** _"What does 80% code coverage mean? Is it enough?"_ (80% is a common threshold. It is a floor, not a goal — critical paths like auth and error handling should be 100%; utility code can be lower. Coverage does not guarantee correctness.)
+
+---
+
+### Day 15: CI/CD Deep Dive and Interview Prep
+
+**Topic:** GitHub Actions triggers, job steps, artifact upload, matrix builds, mock interview.
+
+**Morning:** Read `.github/workflows/ci.yml` end-to-end. Identify: what triggers the workflow, which jobs run, what is uploaded as an artifact.
+
+**Afternoon task:**
+- Push a branch with a deliberate test failure. Observe the CI failure in the Actions tab. Fix it and re-push.
+- Answer each question in [Interview Prep](interview_prep.md) out loud (or in writing).
+- Write 2–3 sentences for a resume bullet point describing this project.
+
+**Done when:** CI is green on your branch; interview prep questions answered.
+
+**Interview angle:** _"Walk me through the CI pipeline for this project."_ (Push triggers checkout → install deps → `black --check` → API tests with coverage → Chrome install → UI tests → upload reports.)
 
 ---
 
 ## Expected Outcomes
 
-By the end of the two-week plan you should be able to:
+By the end of 15 days you will be able to:
 
-1. Write Python functions with proper error handling and logging.
-2. Design and implement REST API tests with `pytest`, covering positive and negative cases.
-3. Write UI tests with Selenium using explicit waits and a basic Page Object pattern.
-4. Run, read, and debug a GitHub Actions CI workflow.
-5. Apply code formatting (`black`) and follow commit conventions.
-6. Confidently answer common Python SDET interview questions.
+1. Write Python with proper type hints, error handling, and OOP design.
+2. Design and automate REST API tests with `pytest`, including parametrized, auth, and pagination tests.
+3. Write UI tests with Selenium using the Page Object Model and explicit waits.
+4. Measure and improve test coverage with `pytest-cov`.
+5. Generate HTML reports and capture screenshots on failure.
+6. Operate and debug a GitHub Actions CI pipeline.
+7. Answer common Python SDET interview questions with confidence.
 
 ---
 
@@ -203,6 +301,7 @@ By the end of the two-week plan you should be able to:
 
 - [Onboarding](onboarding.md) — environment setup
 - [Learning Path](learning_path.md) — phase-by-phase progression
-- [Hands-on Tasks](tasks.md) — task list
+- [Hands-on Tasks](tasks.md) — one task per day
 - [Best Practices](best_practices.md) — automation patterns
+- [Interview Prep](interview_prep.md) — 30+ Q&As
 - [Development Guide](development_guide.md) — branching and workflow

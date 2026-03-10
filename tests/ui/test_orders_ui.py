@@ -1,4 +1,5 @@
 """UI tests for Order Board (Selenium)."""
+
 import threading
 import time
 
@@ -11,6 +12,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from src.app import app as flask_app
 from src.data_store import clear_orders
+from tests.ui.pages.order_page import OrderPage
 
 HOST = "127.0.0.1"
 PORT = 5099
@@ -43,42 +45,39 @@ def driver():
 
 @pytest.mark.ui
 def test_page_title(driver, live_server):
-    driver.get(live_server)
+    OrderPage(driver).open(live_server)
     assert "Order Board" in driver.title
 
 
 @pytest.mark.ui
 def test_create_order_via_ui(driver, live_server):
-    driver.get(live_server)
-    wait = WebDriverWait(driver, 10)
-    driver.find_element(By.ID, "customer").send_keys("UIUser")
-    driver.find_element(By.ID, "item").send_keys("Gadget")
-    driver.find_element(By.ID, "quantity").send_keys("3")
-    driver.find_element(By.ID, "price").send_keys("19.99")
-    driver.find_element(By.ID, "add-btn").click()
-    wait.until(EC.text_to_be_present_in_element((By.ID, "orders-body"), "UIUser"))
-    rows = driver.find_elements(By.CSS_SELECTOR, "#orders-body tr")
+    clear_orders()
+    page = OrderPage(driver)
+    page.open(live_server)
+    page.create_order("UIUser", "Gadget", "3", "19.99")
+    rows = page.get_order_rows()
     assert any("UIUser" in r.text for r in rows)
 
 
 @pytest.mark.ui
 def test_delete_order_via_ui(driver, live_server):
-    driver.get(live_server)
-    wait = WebDriverWait(driver, 10)
-    # Create an order first
-    driver.find_element(By.ID, "customer").send_keys("ToDelete")
-    driver.find_element(By.ID, "item").send_keys("Thing")
-    driver.find_element(By.ID, "quantity").send_keys("1")
-    driver.find_element(By.ID, "price").send_keys("5.00")
-    driver.find_element(By.ID, "add-btn").click()
-    wait.until(EC.text_to_be_present_in_element((By.ID, "orders-body"), "ToDelete"))
-    # Find and click the delete button in the "ToDelete" row specifically
-    rows = driver.find_elements(By.CSS_SELECTOR, "#orders-body tr")
-    for row in rows:
-        if "ToDelete" in row.text:
-            row.find_element(By.CSS_SELECTOR, ".del-btn").click()
-            break
-    # Wait for "ToDelete" to disappear from the table
-    wait.until(lambda d: "ToDelete" not in d.find_element(By.ID, "orders-body").text)
-    rows = driver.find_elements(By.CSS_SELECTOR, "#orders-body tr")
+    clear_orders()
+    page = OrderPage(driver)
+    page.open(live_server)
+    page.create_order("ToDelete", "Thing", "1", "5.00")
+    page.delete_order_by_customer("ToDelete")
+    rows = page.get_order_rows()
     assert all("ToDelete" not in r.text for r in rows)
+
+
+@pytest.mark.ui
+def test_stats_panel_shows_totals(driver, live_server):
+    clear_orders()
+    page = OrderPage(driver)
+    page.open(live_server)
+    page.create_order("StatsUser", "Item", "2", "10.00")
+    wait = WebDriverWait(driver, 10)
+    wait.until(lambda d: d.find_element(By.ID, "stats-total").text != "0")
+    stats = page.get_stats()
+    assert stats["total"] == "1"
+    assert stats["pending"] == "1"

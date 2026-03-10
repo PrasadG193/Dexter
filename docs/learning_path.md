@@ -1,54 +1,80 @@
 # Learning Path
 
-This path guides you from Python fundamentals to automation-ready skills by building the Order Board project end-to-end.
+This path guides you from Python fundamentals to automation-ready SDET skills by building and testing the Order Board project end-to-end.
 
 > **New to the project?** Start with the [Onboarding Guide](onboarding.md) to set up your environment first.
-> See also: [Training Plan](training_plan.md) for a structured daily schedule, and [Development Guide](development_guide.md) for branching and test workflow.
+> See also: [Training Plan](training_plan.md) for a day-by-day schedule and [Development Guide](development_guide.md) for branching workflow.
 
-## Phase 1: Python Foundations (Day 1-2)
-1. Data types, variables, and operators
-2. Collections: list, dict, set, tuple
-3. Control flow: if/else, loops
-4. Functions and modules
-5. Exceptions and logging
+---
 
-**Outcome:** You can read/write small Python scripts and understand basic syntax.
+## Phase 1: Python Foundations (Days 1–5)
 
-## Phase 2: Project Core (Day 3-4)
-1. Read `src/data_store.py` to understand how in-memory data is handled.
-2. Run the Flask app (`python -m src.app`).
-3. Use curl or Postman to hit `/api/orders` and `/api/health`.
+1. Data types: `str`, `int`, `float`, `list`, `dict`, `set`, `tuple`
+2. List/dict comprehensions and functional tools (`map`, `filter`)
+3. Functions, type hints, default arguments, modules
+4. Error handling: `try/except/finally`, custom exceptions
+5. OOP and `@dataclass` — read `src/models.py`
+6. Flask basics: routes, request/response, JSON, HTTP status codes
 
-**Outcome:** You understand the basic API and how it stores data.
+**Outcome:** You can read and write small Python scripts, understand the Order Board app, and call every endpoint with curl.
 
-## Phase 3: API Automation (Day 5-6)
-1. Read `tests/api/test_orders_api.py`.
-2. Add more tests for negative cases and validation.
-3. Add new API features and write tests first (TDD style).
+**Key files:** `src/models.py`, `src/utils.py`, `src/app.py`, `data/sample_orders.json`
 
-**Outcome:** You can design and automate API tests with pytest.
+---
 
-## Phase 4: UI Automation (Day 7)
-1. Review `tests/ui/test_orders_ui.py`.
-2. Add new UI validations (edge cases, error handling).
-3. Add a new UI feature and automate it.
+## Phase 2: API Test Automation (Days 6–10)
 
-**Outcome:** You can run UI automation with Selenium.
+1. `pytest` fundamentals: fixtures, assertions, `conftest.py`, fixture scope
+2. Parametrized tests with `@pytest.mark.parametrize`
+3. Test data management: fixture factories, JSON data files
+4. Authentication testing: 401 vs. 403, header-based auth
+5. Advanced query testing: filtering, pagination, aggregate endpoints, `pytest.approx`
 
-## Phase 5: CI/CD (Day 8)
-1. Read `docs/ci_cd.md`.
-2. Trigger GitHub Actions by pushing a change.
-3. Inspect the workflow logs and artifacts.
+**Outcome:** You can design and automate a complete API test suite — positive, negative, parametrized, and auth tests — and run it with a single `pytest -m api -v` command.
 
-**Outcome:** You can operate a CI pipeline for automated tests.
+**Key files:** `tests/conftest.py`, `tests/api/test_orders_api.py`, `tests/api/test_filters_api.py`, `tests/api/test_auth_api.py`
+
+---
+
+## Phase 3: UI Automation + CI/CD (Days 11–15)
+
+1. Selenium WebDriver: setup, locators, `WebDriverWait` with `ExpectedConditions`
+2. Page Object Model: encapsulate locators and actions in `OrderPage`
+3. Advanced UI: filter tests, stats panel, screenshot on failure
+4. Coverage and reporting: `pytest-cov`, `pytest-html`, `black`
+5. CI/CD: GitHub Actions, workflow triggers, artifact upload, debugging failures
+
+**Outcome:** You can write maintainable UI automation using POM, measure and improve test coverage, and operate a CI pipeline from end to end.
+
+**Key files:** `tests/ui/pages/order_page.py`, `tests/ui/test_orders_ui.py`, `.github/workflows/ci.yml`
+
+---
+
+## Skills Checklist
+
+After completing all three phases you should be able to:
+
+- [ ] Write Python with type hints, error handling, and dataclasses
+- [ ] Build and test REST API endpoints with Flask and pytest
+- [ ] Use `@pytest.mark.parametrize` for data-driven tests
+- [ ] Test API authentication (401, 403 scenarios)
+- [ ] Test filtering, pagination, and aggregate endpoints
+- [ ] Write Selenium UI tests using the Page Object Model
+- [ ] Use `WebDriverWait` (never `time.sleep`)
+- [ ] Capture screenshots on test failure automatically
+- [ ] Generate HTML test reports with `pytest-html`
+- [ ] Measure code coverage with `pytest-cov`
+- [ ] Operate and debug a GitHub Actions CI pipeline
+- [ ] Apply `black` code formatting
 
 ---
 
 ## Related Guides
 
 - [Onboarding](onboarding.md) — environment setup
-- [Training Plan](training_plan.md) — structured daily schedule
+- [Training Plan](training_plan.md) — structured 15-day daily schedule
 - [Hands-on Tasks](tasks.md) — incremental coding tasks
 - [Best Practices](best_practices.md) — automation patterns and checklist
+- [Interview Prep](interview_prep.md) — 30+ interview Q&As
 - [Development Guide](development_guide.md) — branching and test workflow
 - [CI/CD Guide](ci_cd.md) — GitHub Actions details
